@@ -13,7 +13,7 @@ public class Distance implements DistanceProvider, Comparable<DistanceProvider>,
         this.lengthUnit = lengthUnit;
     }
 
-    public static Distance of(BigDecimal amount, LengthUnit lengthUnit) {
+    public static Distance of(final BigDecimal amount, final LengthUnit lengthUnit) {
         DistanceUtils.checkNotNull(amount, "Amount cannot be null.");
         DistanceUtils.checkNotNull(lengthUnit, "Length unit cannot be null.");
         return new Distance(amount, lengthUnit);
@@ -27,28 +27,28 @@ public class Distance implements DistanceProvider, Comparable<DistanceProvider>,
         return amount;
     }
 
-    private Distance checkLengthUnitEqual(DistanceProvider provider) {
+    private Distance checkLengthUnitEqual(final DistanceProvider provider) {
         Distance distance = of(provider);
-        if (isSameLenghtUnit(distance) == false) {
+        if (isSameLengthUnit(distance) == false) {
             throw new IllegalArgumentException("Units mismatch");
         }
         return distance;
     }
 
-    private boolean isSameLenghtUnit(DistanceProvider distance) {
+    private boolean isSameLengthUnit(final DistanceProvider distance) {
         return (this.getLengthUnit().equals(of(distance).getLengthUnit()));
     }
 
-    public static Distance of(DistanceProvider provider) {
-        Distance distance = provider.toDistance();
+    public static Distance of(final DistanceProvider provider) {
+        final Distance distance = provider.toDistance();
         return distance;
     }
 
-    public Distance convertTo(LengthUnit lengthUnit, BigDecimal ratio) {
+    public Distance convertTo(final LengthUnit lengthUnit, final BigDecimal ratio) {
         if (this.lengthUnit == lengthUnit) {
             return this;
         }
-        BigDecimal newDistanceAmount = amount.multiply(ratio);
+        final BigDecimal newDistanceAmount = amount.multiply(ratio);
         return Distance.of(newDistanceAmount, lengthUnit);
     }
 
@@ -57,49 +57,49 @@ public class Distance implements DistanceProvider, Comparable<DistanceProvider>,
         return this;
     }
 
-    public Distance plus(DistanceProvider distanceToAdd) {
-        Distance toAdd = checkLengthUnitEqual(distanceToAdd);
+    public Distance plus(final DistanceProvider distanceToAdd) {
+        final Distance toAdd = checkLengthUnitEqual(distanceToAdd);
         return plus(toAdd.getAmount());
     }
 
-    public Distance minus(DistanceProvider distanceToSubtrack) {
-        Distance toRemove = checkLengthUnitEqual(distanceToSubtrack);
+    public Distance minus(final DistanceProvider distanceToSubtrack) {
+        final Distance toRemove = checkLengthUnitEqual(distanceToSubtrack);
         return minus(toRemove.getAmount());
     }
 
-    public Distance multiplied(DistanceProvider distanceMultiplier) {
-        Distance multiplier = checkLengthUnitEqual(distanceMultiplier);
+    public Distance multiplied(final DistanceProvider distanceMultiplier) {
+        final Distance multiplier = checkLengthUnitEqual(distanceMultiplier);
         return multiplied(multiplier.getAmount());
     }
 
-    public Distance divide(DistanceProvider divideBy) {
-        Distance divide = checkLengthUnitEqual(divideBy);
+    public Distance divide(final DistanceProvider divideBy) {
+        final Distance divide = checkLengthUnitEqual(divideBy);
         return divide(divide.getAmount());
     }
 
-    public Distance plus(BigDecimal amountToAdd) {
-        BigDecimal newAmount = amount.add(amountToAdd);
+    public Distance plus(final BigDecimal amountToAdd) {
+        final BigDecimal newAmount = amount.add(amountToAdd);
         return Distance.of(newAmount, lengthUnit);
     }
 
-    public Distance minus(BigDecimal amountToSubtrack) {
-        BigDecimal newAmount = amount.subtract(amountToSubtrack);
+    public Distance minus(final BigDecimal amountToSubtrack) {
+        final BigDecimal newAmount = amount.subtract(amountToSubtrack);
         return Distance.of(newAmount, lengthUnit);
     }
 
-    public Distance multiplied(BigDecimal multiplier) {
-        BigDecimal newAmount = amount.multiply(multiplier);
+    public Distance multiplied(final BigDecimal multiplier) {
+        final BigDecimal newAmount = amount.multiply(multiplier);
         return Distance.of(newAmount, lengthUnit);
     }
 
-    public Distance divide(BigDecimal divideBy) {
-        BigDecimal newAmount = amount.divide(divideBy);
+    public Distance divide(final BigDecimal divideBy) {
+        final BigDecimal newAmount = amount.divide(divideBy);
         return Distance.of(newAmount, lengthUnit);
     }
 
     @Override
-    public int compareTo(DistanceProvider other) {
-        Distance otherDistance = of(other);
+    public int compareTo(final DistanceProvider other) {
+        final Distance otherDistance = of(other);
         if (lengthUnit.equals(otherDistance.getLengthUnit()) == false) {
             throw new IllegalArgumentException("Units mismatch");
         }

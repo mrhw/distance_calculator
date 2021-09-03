@@ -3,6 +3,18 @@ Example of rest body:
 
 {
   "firstDistance": {
+    "amount": "1.50",
+    "lengthUnit": "M"
+  },
+  "secondDistance": {
+    "amount": "200.1",
+    "lengthUnit": "NM"
+  },
+  "resultUnit": "m"
+}
+-----------------------
+{
+  "firstDistance": {
     "amount": "1",
     "lengthUnit": "ft"
   },

@@ -15,35 +15,35 @@ public class DistanceServiceImpl implements DistanceService {
     }
 
     @Override
-    public Distance add(Distance distance1, Distance distance2) {
+    public Distance add(final Distance distance1, final Distance distance2) {
         try {
             return distance1.plus(distance2);
         } catch (IllegalArgumentException e) {
-            Distance converted = getConverted(distance1, distance2);
+            final Distance converted = getConverted(distance1, distance2);
             return converted.plus(distance2);
         }
     }
 
-    private Distance getConverted(Distance distance1, Distance distance2) {
+    private Distance getConverted(final Distance distance1, final Distance distance2) {
         return distance1.convertTo(distance2.getLengthUnit(), rateResolver.resolve(distance1.getLengthUnit(), distance2.getLengthUnit()));
     }
 
     @Override
-    public Distance subtract(Distance distance1, Distance distance2) {
+    public Distance subtract(final Distance distance1, final Distance distance2) {
         try {
             return distance1.minus(distance2);
         } catch (IllegalArgumentException e) {
-            Distance converted = getConverted(distance1, distance2);
+            final Distance converted = getConverted(distance1, distance2);
             return converted.minus(distance2);
         }
     }
 
     @Override
-    public Distance multiply(Distance distance1, Distance distance2) {
+    public Distance multiply(final Distance distance1, final Distance distance2) {
         try {
             return distance1.multiplied(distance2);
         } catch (IllegalArgumentException e) {
-            Distance converted = getConverted(distance1, distance2);
+            final Distance converted = getConverted(distance1, distance2);
             return converted.multiplied(distance2);
         }
     }

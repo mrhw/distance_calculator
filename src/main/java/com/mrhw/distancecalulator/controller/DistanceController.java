@@ -18,45 +18,46 @@ public class DistanceController {
     private RateResolver conversionService;
 
     @Autowired
-    public DistanceController(DistanceService distanceService, RateResolver conversionService) {
+    public DistanceController(final DistanceService distanceService, final RateResolver conversionService) {
         this.distanceService = distanceService;
         this.conversionService = conversionService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity addDistances(@RequestBody Request request) {
-        Distance updated = distanceService.add(request.getFirstDistance(), request.getSecondDistance());
-        Distance converted = getDistance(request, updated);
+    public ResponseEntity addDistances(@RequestBody final Request request) {
+        final Distance updated = distanceService.add(request.getFirstDistance(), request.getSecondDistance());
+        final Distance converted = getDistance(request, updated);
         return ResponseEntity.ok(converted);
     }
 
     @PostMapping("/subtract")
-    public ResponseEntity subtractDistances(@RequestBody Request request) {
-        Distance updated = distanceService.subtract(request.getFirstDistance(), request.getSecondDistance());
-        Distance converted = getDistance(request, updated);
+    public ResponseEntity subtractDistances(@RequestBody final Request request) {
+        final Distance updated = distanceService.subtract(request.getFirstDistance(), request.getSecondDistance());
+        final Distance converted = getDistance(request, updated);
         return ResponseEntity.ok(converted);
     }
+
     @PostMapping("/multiply")
-    public ResponseEntity multiplyDistances(@RequestBody Request request) {
-        Distance multiplied = distanceService.multiply(request.getFirstDistance(), request.getSecondDistance());
-        Distance converted = getDistance(request, multiplied);
+    public ResponseEntity multiplyDistances(@RequestBody final Request request) {
+        final Distance multiplied = distanceService.multiply(request.getFirstDistance(), request.getSecondDistance());
+        final Distance converted = getDistance(request, multiplied);
         return ResponseEntity.ok(converted);
     }
 
     @PostMapping("/divide")
-    public ResponseEntity divideDistances(@RequestBody Request request) {
+    public ResponseEntity divideDistances(@RequestBody final Request request) {
         try {
-            Distance updated = distanceService.divide(request.getFirstDistance(), request.getSecondDistance());
-            Distance converted = getDistance(request, updated);
+            final Distance updated = distanceService.divide(request.getFirstDistance(), request.getSecondDistance());
+            final Distance converted = getDistance(request, updated);
             return ResponseEntity.ok(converted);
         } catch (ArithmeticException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    private Distance getDistance(Request request, Distance updated) {
-        BigDecimal conversionRate = conversionService.resolve(updated.getLengthUnit(), request.getResultUnit());
-        Distance converted = updated.convertTo(request.getResultUnit(), conversionRate);
+    private Distance getDistance(final Request request, final Distance updated) {
+        final BigDecimal conversionRate = conversionService.resolve(updated.getLengthUnit(), request.getResultUnit());
+        final Distance converted = updated.convertTo(request.getResultUnit(), conversionRate);
         return converted;
     }
 
