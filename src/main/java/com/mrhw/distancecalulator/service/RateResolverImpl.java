@@ -2,14 +2,16 @@ package com.mrhw.distancecalulator.service;
 
 import com.mrhw.distancecalulator.model.Constants;
 import com.mrhw.distancecalulator.model.LengthUnit;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Component
-public class ConversionServiceImpl implements ConversionService {
+@NoArgsConstructor
+public class RateResolverImpl implements RateResolver {
     @Override
-    public BigDecimal resolveRate(final LengthUnit from, final LengthUnit to) {
+    public BigDecimal resolve(final LengthUnit from, final LengthUnit to) {
         if (from == to) {
             return Constants.ONE;
         } else if (from.equals(LengthUnit.M)) {

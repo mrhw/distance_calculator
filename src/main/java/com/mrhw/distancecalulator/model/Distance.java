@@ -39,7 +39,7 @@ public class Distance implements DistanceProvider, Comparable<DistanceProvider>,
         return (this.getLengthUnit().equals(of(distance).getLengthUnit()));
     }
 
-    private Distance of(DistanceProvider provider) {
+    public static Distance of(DistanceProvider provider) {
         Distance distance = provider.toDistance();
         return distance;
     }

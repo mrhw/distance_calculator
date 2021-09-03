@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DistanceServiceImpl implements DistanceService {
 
-    private ConversionService conversionService;
+    private RateResolver rateResolver;
 
     @Autowired
-    public DistanceServiceImpl(ConversionService conversionService) {
-        this.conversionService = conversionService;
+    public DistanceServiceImpl(RateResolver conversionService) {
+        this.rateResolver = conversionService;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DistanceServiceImpl implements DistanceService {
     }
 
     private Distance getConverted(Distance distance1, Distance distance2) {
-        return distance1.convertTo(distance2.getLengthUnit(), conversionService.resolveRate(distance1.getLengthUnit(), distance2.getLengthUnit()));
+        return distance1.convertTo(distance2.getLengthUnit(), rateResolver.resolve(distance1.getLengthUnit(), distance2.getLengthUnit()));
     }
 
     @Override
