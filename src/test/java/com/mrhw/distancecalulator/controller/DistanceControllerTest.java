@@ -117,6 +117,7 @@ class DistanceControllerTest {
                 .andReturn();
         Distance resulted = MAPPER.readValue(result.getResponse().getContentAsString(), Distance.class);
         assertEquals(resulted.getAmount(), BigDecimal.valueOf(2).setScale(2));
+        assertEquals(resulted.getLengthUnit(), SQM);
     }
 
     @SneakyThrows
@@ -134,7 +135,7 @@ class DistanceControllerTest {
                 .andReturn();
         Distance resulted = MAPPER.readValue(result.getResponse().getContentAsString(), Distance.class);
         assertEquals(resulted.getAmount(), BigDecimal.valueOf(32.80).setScale(2));
-        assertEquals(resulted.getLengthUnit(), FT);
+        assertEquals(resulted.getLengthUnit(), SQFT);
     }
 
     @SneakyThrows
@@ -150,8 +151,8 @@ class DistanceControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        Distance resulted = MAPPER.readValue(result.getResponse().getContentAsString(), Distance.class);
-        assertEquals(resulted.getAmount(), BigDecimal.valueOf(0.5).setScale(2));
+        String resulted = result.getResponse().getContentAsString();
+        assertEquals(resulted, BigDecimal.valueOf(0.5).setScale(2).toString());
     }
 
     @SneakyThrows
@@ -167,9 +168,8 @@ class DistanceControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        Distance resulted = MAPPER.readValue(result.getResponse().getContentAsString(), Distance.class);
-        assertEquals(resulted.getAmount(), BigDecimal.valueOf(0.33).setScale(2));
-        assertEquals(resulted.getLengthUnit(), FT);
+        String resulted = result.getResponse().getContentAsString();
+        assertEquals(resulted, BigDecimal.valueOf(0.33).setScale(2).toString());
     }
 
     @SneakyThrows

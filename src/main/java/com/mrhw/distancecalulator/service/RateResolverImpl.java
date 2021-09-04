@@ -21,6 +21,12 @@ public class RateResolverImpl implements RateResolver {
             if (to.equals(LengthUnit.FT)) {
                 return Constants.METER_TO_FT;
             }
+            if (to.equals(LengthUnit.SQFT)) {
+                return Constants.SQM_TO_SQFT;
+            }
+            if (to.equals(LengthUnit.SQNM)) {
+                return Constants.SQM_TO_SQNM;
+            }
 
         } else if (from.equals(LengthUnit.FT)) {
             if (to.equals(LengthUnit.M)) {
@@ -29,6 +35,12 @@ public class RateResolverImpl implements RateResolver {
             if (to.equals(LengthUnit.NM)) {
                 return Constants.FT_TO_NM;
             }
+            if (to.equals(LengthUnit.SQM)) {
+                return Constants.SQFT_TO_SQM;
+            }
+            if (to.equals(LengthUnit.SQNM)) {
+                return Constants.SQFT_TO_SQNM;
+            }
         } else if (from.equals(LengthUnit.NM)) {
             if (to.equals(LengthUnit.M)) {
                 return Constants.NM_TO_METER;
@@ -36,7 +48,13 @@ public class RateResolverImpl implements RateResolver {
             if (to.equals(LengthUnit.FT)) {
                 return Constants.NM_TO_FT;
             }
+            if (to.equals(LengthUnit.SQM)) {
+                return Constants.SQNM_TO_SQM;
+            }
+            if (to.equals(LengthUnit.SQFT)) {
+                return Constants.SQNM_TO_SQFT;
+            }
         }
-        throw new IllegalArgumentException("Unknown conversion");
+        return Constants.ONE;
     }
 }
